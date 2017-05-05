@@ -14,7 +14,7 @@ ENV CACHE_SIZE      256m
 ENV VARNISHD_PARAMS ""
 
 # Use baseimage-docker's init system.
-CMD ["/sbin/my_init"]
+CMD ["/etc/service/varnishd/run"]
 EXPOSE 80
 
 #install collectd with varnish (thanks to varnish-dev being installed)
