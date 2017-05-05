@@ -2,6 +2,11 @@
 
 set -e
 
+sed -i "s/\$HOSTNAME/$HOSTNAME/" /etc/collectd.conf
+sed -i "s/\$MONITORING_HOST/$MONITORING_HOST/" /etc/collectd.conf
+
+collectd -C /etc/collectd.conf
+
 exec bash -c \
   "exec varnishd -F \
   -a :80 \
