@@ -20,8 +20,8 @@ ENV VCL_CONFIG      /etc/varnish/default.vcl
 ENV CACHE_SIZE      256m
 ENV VARNISHD_PARAMS ""
 
-ADD run.sh /run
-RUN chmod +x /run
+ADD run.sh /usr/local/bin/run
+RUN chmod +x /usr/local/bin/run
 
-CMD ["/run"]
+CMD ["/usr/local/bin/run"]
 EXPOSE 80
