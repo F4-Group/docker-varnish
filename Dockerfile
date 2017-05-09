@@ -21,5 +21,7 @@ ENV CACHE_SIZE      256m
 ENV VARNISHD_PARAMS ""
 
 ADD run.sh /run
+RUN chmod +x /run
+
 CMD ["/run"]
 EXPOSE 80
