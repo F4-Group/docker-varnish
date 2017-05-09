@@ -14,14 +14,12 @@ RUN curl -o /tmp/collectd.tar.bz2 https://storage.googleapis.com/collectd-tarbal
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD run.sh /etc/service/varnishd/run
-
 ADD collectd.conf /etc/collectd.conf
 
 ENV VCL_CONFIG      /etc/varnish/default.vcl
 ENV CACHE_SIZE      256m
 ENV VARNISHD_PARAMS ""
 
-# Use baseimage-docker's init system.
-CMD ["/etc/service/varnishd/run"]
+ADD run.sh /run
+CMD ["/run"]
 EXPOSE 80
