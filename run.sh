@@ -7,6 +7,10 @@ sed -i "s/\$MONITORING_HOST/$MONITORING_HOST/" /etc/collectd.conf
 
 collectd -C /etc/collectd.conf
 
+if [ ! -f /etc/varnish/secret ]; then
+    dd if=/dev/random of=/etc/varnish/secret count=1
+fi
+
 exec bash -c \
   "exec varnishd -F \
   -a :80 \
