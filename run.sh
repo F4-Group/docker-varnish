@@ -2,11 +2,15 @@
 
 set -e
 
-sed -i "s/\$HOSTNAME/$HOSTNAME/" /etc/collectd.conf
-sed -i "s/\$MONITORING_HOST/$MONITORING_HOST/" /etc/collectd.conf
-sed -i "s/\$COLLECTD_TCPCONNS_PORTS/$COLLECTD_TCPCONNS_PORTS/" /etc/collectd.conf
-
-collectd -C /etc/collectd.conf
+## collectd
+if [ -f /etc/collectd.conf ]; then
+  echo "Starting Collectd"
+  cat /etc/collectd.conf
+  collectd -C /etc/collectd.conf
+  echo "Collectd now running"
+else
+  echo "Collectd configuration file not found, Collectd not started"
+fi
 
 if [ ! -f /etc/varnish/secret ]; then
     dd if=/dev/random of=/etc/varnish/secret count=1
