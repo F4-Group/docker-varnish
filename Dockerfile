@@ -19,7 +19,6 @@ ADD collectd.conf /etc/collectd.conf
 ENV VCL_CONFIG              /etc/varnish/default.vcl
 ENV CACHE_SIZE              256m
 ENV VARNISHD_PARAMS         ""
-ENV COLLECTD_TCPCONNS_PORTS ""
 
 ADD run.sh /usr/local/bin/run
 RUN chmod +x /usr/local/bin/run
