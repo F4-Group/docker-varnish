@@ -14,8 +14,6 @@ RUN curl -o /tmp/collectd.tar.bz2 https://storage.googleapis.com/collectd-tarbal
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD collectd.conf /etc/collectd.conf
-
 ENV VCL_CONFIG              /etc/varnish/default.vcl
 ENV CACHE_SIZE              256m
 ENV VARNISHD_PARAMS         ""
