@@ -1,4 +1,7 @@
-FROM ubuntu:trusty
+FROM phusion/baseimage:0.9.22
+
+# Use baseimage-docker's init system.
+CMD ["/sbin/my_init"]
 
 RUN apt-get update
 RUN apt-get install -y build-essential curl
@@ -11,15 +14,14 @@ RUN curl -o /tmp/collectd.tar.bz2 https://storage.googleapis.com/collectd-tarbal
     (cd /tmp && tar xf collectd.tar.bz2 && mv collectd-5.7.1 /tmp/collectd && rm collectd.tar.bz2) && \
     (cd /tmp/collectd && ./configure --prefix / && make && make install)
 
-# Clean up APT when done.
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 ENV VCL_CONFIG              /etc/varnish/default.vcl
 ENV CACHE_SIZE              256m
 ENV VARNISHD_PARAMS         ""
 
-ADD run.sh /usr/local/bin/run
-RUN chmod +x /usr/local/bin/run
+ADD collectd.sh /etc/service/collectd/run
+ADD varnish.sh /etc/service/varnish/run
 
-CMD ["/usr/local/bin/run"]
 EXPOSE 80
+
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
