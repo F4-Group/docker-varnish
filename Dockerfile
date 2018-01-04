@@ -4,7 +4,7 @@ RUN apt-get update
 RUN apt-get install -y build-essential curl
 
 RUN curl -s https://packagecloud.io/install/repositories/varnishcache/varnish5/script.deb.sh | bash
-RUN apt-get -y install varnish varnish-dev
+RUN apt-get -y install varnish=5.1.3-1~trusty varnish-dev=5.1.3-1~trusty
 
 #install collectd with varnish (thanks to varnish-dev being installed)
 RUN curl -o /tmp/collectd.tar.bz2 https://storage.googleapis.com/collectd-tarballs/collectd-5.7.1.tar.bz2 && \
